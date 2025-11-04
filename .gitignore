@@ -1,0 +1,6 @@
+﻿# Ignore Properties folder
+Properties/
+
+# Ignore specific files
+Program.cs
+appsettings.json
