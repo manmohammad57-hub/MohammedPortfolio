@@ -1,0 +1,46 @@
+﻿@model MohammedPortfolio.Models.ImplementationStep
+@{
+    ViewData["Title"] = "Add New Implementation Step";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="section">
+    <div class="container">
+        <h2 class="mb-4">Add New Service</h2>
+
+        <form asp-action="CreateStep" method="post" asp-area="Admin"
+                 asp-controller="Services" >
+            <div class="mb-3">
+                <label asp-for="StepTitle" class="form-label"></label>
+                <input asp-for="StepTitle" class="form-control" />
+                <span asp-validation-for="StepTitle" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Duration" class="form-label"></label>
+                <input asp-for="Duration"  class="form-control"/>
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="StepNumber" class="form-label"></label>
+                <input asp-for="StepNumber" type="number"  class="form-control" />
+                <span asp-validation-for="StepNumber" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Add  Step
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

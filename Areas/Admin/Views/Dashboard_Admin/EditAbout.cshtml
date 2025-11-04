@@ -1,0 +1,99 @@
+﻿@model MohammedPortfolio.Models.About
+@{
+    ViewData["Title"] = "Edit About Page";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- ===== Edit Admin Info Section ===== -->
+<section id="edit-admin-info" class="section bg-light py-5">
+    <div class="container" data-aos="fade-up">
+        <div class="text-center mb-4">
+            <h2>Edit About Information</h2>
+            <p>Update your About details below.</p>
+        </div>
+
+        <form 
+                  asp-area="Admin" 
+                  asp-controller="Dashboard_Admin" 
+                  asp-action="EditAbout" 
+                  asp-route-id="@Model.Id"
+                  method="post"
+                  enctype="multipart/form-data" 
+                  class="mx-auto" 
+                  style="max-width: 700px;">
+
+            <input type="hidden" asp-for="Id" />
+
+            <!-- Basic Info -->
+            <div class="mb-3">
+                <label asp-for="Tagline" class="form-label"></label>
+                <input asp-for="Tagline" class="form-control" />
+                <span asp-validation-for="Tagline" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            
+            <!--  Profile Image -->
+            <div class="mb-3">
+                <label class="form-label">Profile Image</label>
+                <input type="file" name="AboutImageFile" class="form-control" accept="image/*" />
+
+                @if (Model.Aboutimage != null && Model.Aboutimage.Length > 0)
+                {
+                    <div class="mt-2 text-center">
+                        <p class="text-muted">Current Profile Image:</p>
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Aboutimage)"
+                             alt="About  Image"
+                             class="img-thumbnail rounded-circle shadow"
+                             style="width:150px; height:150px; object-fit:cover;">
+                    </div>
+                }
+                else
+                {
+                    <small class="text-muted d-block mt-2">No current image uploaded.</small>
+                }
+            </div>
+
+             <!--  Resume PDF -->
+            <div class="mb-3">
+                <label class="form-label">Resume PDF</label>
+                <input type="file" name="ResumeFile" class="form-control" accept="application/pdf" />
+
+                @if (Model.ResumePdf != null && Model.ResumePdf.Length > 0)
+                {
+                      <div class="mt-4">
+                            <a asp-action="ViewResume"
+                               asp-controller="Dashboard_Admin"
+                               asp-area="Admin"
+                               asp-route-id="@Model.Id"
+                               target="_blank"
+                               class="btn btn-primary btn-sm">
+                                <i class="bi bi-file-earmark-pdf"></i> View Current Resume
+                            </a>
+                        </div>
+                }
+                else
+                {
+                    <small class="text-muted d-block mt-2">No resume uploaded.</small>
+                }
+            </div>
+
+            <!--  Actions -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-4 me-2">
+                    <i class="bi bi-save"></i> Save Changes
+                </button>
+                <a asp-area="Admin" asp-controller="Dashboard_Admin" asp-action="AboutDashboard" class="btn btn-secondary px-4">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </a>
+            </div>
+
+        </form>
+    </div>
+</section>
+<!-- ===== End Edit Section ===== -->

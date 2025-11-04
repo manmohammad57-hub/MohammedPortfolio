@@ -1,0 +1,82 @@
+﻿@model MohammedPortfolio.Models.Profile
+@{
+    ViewData["Title"] = "Admin Info";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- ===== Admin Info Section ===== -->
+<section id="admin-info" class="about section">
+
+    <!-- Section Title -->
+    <div class="container section-title text-center"  data-aos="fade-up">
+        <h2>Admin Information</h2>
+        <p>
+            Learn more about the administrator managing this portfolio system — background, contact info, and resume details.
+        </p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row align-items-center justify-content-between gy-5 mb-5">
+            <!-- Profile Image -->
+            <div class="col-lg-5" data-aos="zoom-in" data-aos-delay="250">
+                @if (Model.ProfileImage != null && Model.ProfileImage.Length > 0)
+                {
+                    <!-- عرض الصورة المخزّنة في قاعدة البيانات -->
+                    <figure class="profile-figure text-center text-lg-end">
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ProfileImage)" 
+                             alt="Profile Image" 
+                             class="img-thumbnail rounded-circle shadow"
+                             style="width:250px; height:250px; object-fit:cover;">
+                    </figure> 
+                            
+                }
+                else
+                {
+                    <!--  عرض الصورة الافتراضية -->
+                    <figure class="profile-figure text-center text-lg-end">
+                         <div class="d-flex justify-content-center align-items-center rounded-circle shadow bg-light"
+                             style="width:400px;height:400px;">
+                            <i class="bi bi-person-circle" style="font-size: 200px; color: #6c757d;"></i>
+                        </div>
+                    </figure>
+                }
+            </div>
+
+
+            <!-- Profile Details -->
+            <div class="col-lg-7" data-aos="fade-right" data-aos-delay="150">
+                <div class="intro-content">
+                    <h2>Full Name:</h2>
+                    <h5 class="headline">@Model.FirstName @Model.LastName</h5>
+
+              
+                    <div class="mt-4">
+                        <p><strong>Email:</strong> @Model.Email</p>
+                        <p><strong>Phone:</strong> @Model.Phone</p>
+                        <p><strong>Location:</strong> @Model.Location</p>
+                    </div>
+
+
+                    <!--  زر تعديل الملف الشخصي -->
+                    <div class="mt-4">
+                        <a 
+                           asp-area="Admin"
+                           asp-controller="Profile"
+                           asp-action="EditProfile"
+                           asp-route-id="@Model.Id"
+
+                           class="btn btn-primary btn-sm">
+                            <i class="bi bi-pencil-square"></i> Edit Profile
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+<!-- ===== End Admin Info Section ===== -->
+

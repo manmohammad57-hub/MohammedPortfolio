@@ -1,0 +1,61 @@
+﻿@model MohammedPortfolio.Models.Service
+@{
+    ViewData["Title"] = "Edit Service";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- ===== Edit Skill Section ===== -->
+<section id="edit-skill-section" class="section bg-light py-5">
+    <div class="container" data-aos="fade-up">
+
+        <!-- Section Title -->
+        <div class="text-center mb-4">
+            <h2>Edit Service</h2>
+            <p>Update your Service information below.</p>
+        </div>
+
+        <!-- Form -->
+        <form 
+            asp-area="Admin"
+            asp-controller="Services"
+            asp-action="Edit"
+            asp-route-id="@Model.Id"
+            method="post"
+            class="mx-auto"
+            style="max-width: 700px;">
+
+            <input type="hidden" asp-for="Id" />
+
+            <!-- Skill Name -->
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" placeholder="Enter Service name" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <!-- Skill Description -->
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Write Service description..."></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+               <div class="mb-3">
+                <label asp-for="IconUrl" class="form-label"></label>
+                <input asp-for="IconUrl" class="form-control" placeholder="Enter url  Icon" />
+                <span asp-validation-for="IconUrl" class="text-danger"></span>
+            </div>
+
+            <!-- Actions -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-4 me-2">
+                    <i class="bi bi-save"></i> Save Changes
+                </button>
+                <a asp-area="Admin" asp-controller="Services" asp-action="Index" class="btn btn-secondary px-4">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- ===== End Edit Skill Section ===== -->

@@ -22,6 +22,7 @@
 
         //  Tools
         public List<string> Tools { get; set; } = new();
+        public List<Category> Categories { get; set; } = new();
 
         //  Additional Images
         public List<IFormFile> AdditionalImages { get; set; } = new();

@@ -1,0 +1,113 @@
+﻿@model MohammedPortfolio.Models.ViewModels.ProjectViewModel
+@{
+    ViewData["Title"] = "Project Details";
+    var details = Model.ProjectDetails.FirstOrDefault();
+    var project = Model.Projects.FirstOrDefault();
+}
+<!-- ============================
+     PROJECT DETAILS SECTION
+============================= -->
+
+<section id="service-details" class="service-details section">
+
+    <div class="container section-title" data-aos="fade-up">
+        <h2>@project?.Title</h2>
+        <p>@project?.Description</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+            <div class="col-lg-6">
+                <h4>Project Overview</h4>
+                <p>@details?.Overview</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h4>Tools & Technologies</h4>
+                <ul>
+                    @if (Model.Tools != null && Model.Tools.Any())
+                    {
+                        foreach (var tool in Model.Tools)
+                        {
+                            <li>@tool.ToolName</li>
+                        }
+                    }
+                    else
+                    {
+                        <li>No tools available</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5" data-aos="fade-up" data-aos-delay="100">
+        <h4 class="mb-4 text-center">Project Screenshots</h4>
+
+        @if (Model.ProjectImages != null && Model.ProjectImages.Any())
+        {
+            <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < Model.ProjectImages.Count; i++)
+                    {
+                        <button type="button"
+                                data-bs-target="#projectCarousel"
+                                data-bs-slide-to="@i"
+                                class="@(i == 0 ? "active" : "")"
+                                aria-current="@(i == 0 ? "true" : "false")"
+                                aria-label="Slide @(i + 1)">
+                        </button>
+                    }
+                </div>
+
+                <div class="carousel-inner" style="height: 500px;">
+                    @for (int i = 0; i < Model.ProjectImages.Count; i++)
+                    {
+                        var image = Model.ProjectImages[i];
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(image.Image)"
+                                 class="d-block w-100 rounded"
+                                 style="object-fit: contain; height: 500px;"
+                                 alt="Project Screenshot @(i + 1)" />
+                        </div>
+                    }
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        }
+        else
+        {
+            <p class="text-center text-muted">No screenshots available.</p>
+        }
+    </div>
+
+    <div class="hero-actions text-center my-4" data-aos="fade-up" data-aos-delay="500">
+        <p class="mb-2">You can get the source code or view the live demo of this project.</p>
+
+        @if (!string.IsNullOrEmpty(project?.GitHubUrl))
+        {
+            <a href="@project.GitHubUrl" target="_blank" class="btn btn-outline btn-primary me-2">Source Code</a>
+        }
+        else
+        {
+            <p>The source code is not available yet.</p>
+        }
+
+        @if (!string.IsNullOrEmpty(project?.LiveDemoUrl) && Model.Categories.FirstOrDefault()?.CategoryName != "ASP.NET Web API")
+        {
+            <a href="@project.LiveDemoUrl" target="_blank" class="btn btn-primary mt-3">View Demo</a>
+        }
+        else
+        {
+            <p>No live demo for this project.</p>
+        }
+    </div>
+</section>

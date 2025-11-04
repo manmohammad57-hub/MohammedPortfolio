@@ -1,0 +1,60 @@
+﻿@model MohammedPortfolio.Models.Bio
+@{
+    ViewData["Title"] = "Create Bio";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="section py-5">
+    <div class="container">
+        <h2 class="mb-4 text-center">Add New Bio</h2>
+
+        <form asp-area="Admin" asp-controller="Dashboard_Admin" asp-action="CreateBio" method="post">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+
+                    <div class="mb-3">
+                        <label asp-for="NameBoi" class="form-label"></label>
+                        <input asp-for="NameBoi" class="form-control" placeholder="Enter Bio Name (e.g. About, Skill, Service)" />
+                        <span asp-validation-for="NameBoi" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Content" class="form-label"></label>
+                        <textarea asp-for="Content" class="form-control" rows="5" placeholder="Enter bio description..."></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="AboutId" class="form-label"></label>
+                            <input asp-for="AboutId" class="form-control" placeholder="Optional" />
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="SkillId" class="form-label"></label>
+                            <input asp-for="SkillId" class="form-control" placeholder="Optional" />
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label asp-for="ServiceId" class="form-label"></label>
+                            <input asp-for="ServiceId" class="form-control" placeholder="Optional" />
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="bi bi-save"></i> Save Bio
+                        </button>
+                        <a asp-area="Admin" asp-controller="Dashboard_Admin" asp-action="Bio" class="btn btn-secondary ms-2">
+                            <i class="bi bi-arrow-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

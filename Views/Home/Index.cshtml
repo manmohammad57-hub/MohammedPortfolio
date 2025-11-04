@@ -1,8 +1,66 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model MohammedPortfolio.Models.ViewModels.HomeViewModel
+@{
+
+    ViewData["Title"] = "Home";
+    var categories = Model!.Categories ?? new List<MohammedPortfolio.Models.Category>();
+    var typedItems = string.Join(", ", categories.Select(c => c.CategoryName));
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section id="hero" class="hero section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4 align-items-center">
+            <div class="col-lg-6 order-2 order-lg-1">
+                <div class="hero-content">
+                    <h1 data-aos="fade-up" data-aos-delay="200">Hello, I'm <span class="highlight">@Model.Profile!.FirstName @Model.Profile.LastName</span></h1>
+                   <h2 data-aos="fade-up" data-aos-delay="300">
+                        Creative 
+                        <span class="typed"
+                              data-typed-items="@typedItems">
+                        </span>
+                    </h2>
+
+
+                    <p data-aos="fade-up" data-aos-delay="400"> @Model.Bio!.Content</p>
+
+                    <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
+                        <a asp-controller="Home" asp-action="Portfolio" class="btn btn-primary">View My Work</a>
+                        <a asp-controller="Home" asp-action="Contact" class="btn btn-outline">Get In Touch</a>
+                    </div>
+                    <div class="social-links" data-aos="fade-up" data-aos-delay="600">
+                        <a href="#"  target="_blank"  ><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/mohammad-binsalman-309a00322/" target="_blank" ><i class="bi bi-linkedin"></i></a>
+                        <a href="https://github.com/manmohammad57-hub" target="_blank" >  <i  class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 order-1 order-lg-2">
+                <div class="hero-image" data-aos="zoom-in" data-aos-delay="300">
+                   <div class="image-wrapper">
+                        @if (Model.Profile.ProfileImage != null && Model.Profile.ProfileImage.Length > 0)
+                        {
+                            <img 
+                                src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Profile.ProfileImage)" 
+                                alt="Profile image" 
+                                class="img-fluid" />
+                        }
+                        else
+                        {
+                            <img 
+                                src="~/img/default/Coder.jpg" 
+                                alt="Default image" 
+                                class="img-fluid" />
+                        }
+
+                        <div class="floating-elements">
+                            <div class="floating-card mobile-nav-active"><i class="bi bi-phone"></i><span>Flutter</span></div>
+                            <div class="floating-card design"><i class="bi bi-globe"></i><span>ASP.Net Core</span></div>
+                            <div class="floating-card code"><i class="bi bi-code-slash"></i><span>Code</span></div>
+                            <div class="floating-card creativity"><i class="bi bi-lightbulb"></i><span>Ideas</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

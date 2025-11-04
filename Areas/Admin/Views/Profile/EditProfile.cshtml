@@ -1,0 +1,91 @@
+﻿@model MohammedPortfolio.Models.Profile
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- ===== Edit Admin Info Section ===== -->
+<section id="edit-admin-info" class="section bg-light py-5">
+    <div class="container" data-aos="fade-up">
+        <div class="text-center mb-4">
+            <h2>Edit Admin Information</h2>
+            <p>Update your personal details below.</p>
+        </div>
+
+        <form 
+                  asp-area="Admin" 
+                  asp-controller="Profile" 
+                  asp-action="EditProfile" 
+                  asp-route-id="@Model.Id"
+                  method="post"
+                  enctype="multipart/form-data" 
+                  class="mx-auto" 
+                  style="max-width: 700px;">
+
+            <input type="hidden" asp-for="Id" />
+
+            <!-- Basic Info -->
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Location" class="form-label"></label>
+                <input asp-for="Location" class="form-control" />
+            </div>
+
+            <!--  Profile Image -->
+            <div class="mb-3">
+                <label class="form-label">Profile Image</label>
+                <input type="file" name="ProfileImageFile" class="form-control" accept="image/*" />
+
+                @if (Model.ProfileImage != null && Model.ProfileImage.Length > 0)
+                {
+                    <div class="mt-2 text-center">
+                        <p class="text-muted">Current Profile Image:</p>
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ProfileImage)"
+                             alt="Profile Image"
+                             class="img-thumbnail rounded-circle shadow"
+                             style="width:150px; height:150px; object-fit:cover;">
+                    </div>
+                }
+                else
+                {
+                    <small class="text-muted d-block mt-2">No current image uploaded.</small>
+                }
+            </div>
+
+            <!--  Actions -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-4 me-2">
+                    <i class="bi bi-save"></i> Save Changes
+                </button>
+                <a asp-area="Admin" asp-controller="Profile" asp-action="InfoAdmin" class="btn btn-secondary px-4">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </a>
+            </div>
+
+        </form>
+    </div>
+</section>
+<!-- ===== End Edit Section ===== -->

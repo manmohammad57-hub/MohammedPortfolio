@@ -25,7 +25,7 @@ namespace MohammedPortfolio.Areas.Identity.Pages.Account
             _logger.LogInformation("User logged out.");
 
             // إعادة التوجيه إلى صفحة MVC عادية لتجنب مشاكل Identity
-            return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+            return RedirectToAction("Index", "Dashboard_Admin", new { area = "Admin" });
 
         }
     }

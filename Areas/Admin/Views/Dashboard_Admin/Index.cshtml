@@ -1,0 +1,47 @@
+﻿@model MohammedPortfolio.Models.Service
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-5 text-center">
+    <h1 class="mb-4 fw-bold">Admin Dashboard</h1>
+    <ol class="breadcrumb justify-content-center mb-4">
+        <li class="breadcrumb-item active">Overview</li>
+    </ol>
+
+    <!-- Statistics Section -->
+    <div class="row justify-content-center">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body fs-5">Projects</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <span class="fs-6 fw-bold">@ViewBag.TotalProjects</span>
+                    <a class="small text-white stretched-link" href="/Admin/Projects/AllProject">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body fs-5">Services</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <span class="fs-6 fw-bold">@ViewBag.TotalServices</span>
+                    <a class="small text-white stretched-link" href="/Admin/Services/Index">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a href="/Admin/Projects/CreateProject" class="btn btn-outline-primary px-4">
+            <i class="fas fa-plus me-2"></i> Add Project
+        </a>
+        <a href="/Admin/Services/Create" class="btn btn-outline-success px-4">
+            <i class="fas fa-plus me-2"></i> Add Service
+        </a>
+    </div>
+</div>

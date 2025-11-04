@@ -1,0 +1,94 @@
+﻿@model MohammedPortfolio.Models.About
+@{
+    ViewData["Title"] = "About Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- ===== About Dashboard Section ===== -->
+<section id="about-dashboard" class="about section">
+
+    <!-- Section Title -->
+    <div class="container section-title text-center" data-aos="fade-up">
+        <h2>About Information</h2>
+        <p>Overview of the About section: bio, description, and featured image.</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row align-items-center justify-content-between gy-5 mb-5">
+
+            <!-- About Image -->
+            <div class="col-lg-5" data-aos="zoom-in" data-aos-delay="250">
+                @if (Model.Aboutimage != null && Model.Aboutimage.Length > 0)
+                {
+                    <figure class="profile-figure text-center text-lg-end">
+                        <img src="data:image/png;base64,@Convert.ToBase64String(Model.Aboutimage)" 
+                             alt="About Image" 
+                             class="img-thumbnail rounded shadow"
+                             style="width:300px; height:450px; object-fit:cover;">
+                    </figure>
+                }
+                else
+                {
+                    <figure class="profile-figure text-center text-lg-end">
+                        <img src="~/img/default/Coder.jpg" 
+                             alt="Default About Image" 
+                             class="img-thumbnail rounded shadow"
+                             style="width:300px; height:450px; object-fit:cover;">
+                    </figure>
+                }
+            </div>
+
+            <!-- About Details -->
+            <div class="col-lg-7" data-aos="fade-right" data-aos-delay="150">
+                <div class="intro-content">
+                    <h2>Title:</h2>
+                    <h5 class="headline">@Model.Tagline</h5>
+                    <h2>Description:</h2>
+                    <p class="lead">@Model.Description</p>
+
+                       @if (Model.ResumePdf != null && Model.ResumePdf.Length > 0)
+                    {
+                        <div class="mt-4">
+                            <a 
+                               asp-action="ViewResume"
+                               asp-controller="Dashboard_Admin"
+                               asp-area="Admin"
+                               asp-route-id="@Model.Id"
+
+                               target="_blank"
+                               class="btn btn-primary btn-sm">
+                                <i class="bi bi-file-earmark-pdf"></i> View Current Resume
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mt-4">
+                            <button class="btn btn-secondary btn-sm" disabled>
+                                <i class="bi bi-file-earmark-excel"></i> No Resume Uploaded
+                            </button>
+                        </div>
+                    }
+
+
+                    <!-- Edit About Button -->
+                    <div class="mt-4">
+
+                        <a 
+                               asp-area="Admin"
+                               asp-controller="Dashboard_Admin"
+                               asp-action="EditAbout"
+                               asp-route-id="@Model.Id"
+
+                               class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil-square"></i> Edit About
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!-- ===== End About Dashboard Section ===== -->

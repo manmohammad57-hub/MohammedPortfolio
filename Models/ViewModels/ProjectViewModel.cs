@@ -7,5 +7,6 @@
         public List<ProjectDetails> ProjectDetails { get; set; } = new();
         public List<ProjectImage> ProjectImages { get; set; } = new();
         public List<Tool> Tools { get; set; } = new();
+        public Bio? Bio { get; set; }
     }
 }

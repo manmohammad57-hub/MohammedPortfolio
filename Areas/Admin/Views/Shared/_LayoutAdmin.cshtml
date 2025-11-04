@@ -63,9 +63,9 @@
                        </a></li>
                     <li><a class="dropdown-item" 
                            asp-area="Admin"
-                           asp-controller="Dashboard" 
+                           asp-controller="Dashboard_Admin" 
                            asp-action="Settings"> 
-                           Settings
+                           Account
                        </a></li>
                     
                     <li><hr class="dropdown-divider" /></li>
@@ -91,7 +91,7 @@
                     <div class="nav">
                         <!-- Core -->
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="/Admin/Dashboard/Index">
+                        <a class="nav-link" href="/Admin/Dashboard_Admin/Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -137,15 +137,23 @@
                                 
                                 <a class="nav-link"
                                      asp-area="Admin"
-                                     asp-controller="Projects"
-                                     asp-action="Index">
+                                     asp-controller="Dashboard_Admin"
+                                     asp-action="Category">
                                     <div class="sb-nav-link-icon"><i class="fas fa-layer-group"></i></div>
                                     Category
                                 </a>
 
+                                   <a class="nav-link"
+                                     asp-area="Admin"
+                                     asp-controller="Dashboard_Admin"
+                                     asp-action="Bio">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-layer-group"></i></div>
+                                    Bio of Page
+                                </a>
+
                                 <a class="nav-link"
                                      asp-area="Admin"
-                                     asp-controller="Dashboard"
+                                     asp-controller="Dashboard_Admin"
                                      asp-action="AboutDashboard">
                                     <div class="sb-nav-link-icon"><i class="fas fa-info-circle"></i></div>
                                     About
@@ -177,9 +185,9 @@
                         </div>
 
 
-                                              @{
+                             @{
                             // نفترض أن البريد الافتراضي للإدمن هو admin@example.com
-                            var defaultAdminEmail = "admin@example.com";
+                            var defaultAdminEmail = "adminMohammedPortfolio@example.com";
                             var showLink = false;
 
                             if (SignInManager.IsSignedIn(User))
@@ -200,9 +208,9 @@
                             </a>
                         }
 
-                        <a class="nav-link"  href="/Admin/Dashboard/Settings">
+                        <a class="nav-link"  asp-area="Identity" asp-page="/Account/Manage/Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
-                            Settings
+                            Account
                         </a>
 
 

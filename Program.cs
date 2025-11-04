@@ -10,8 +10,15 @@ builder.Services.AddTransient<EmailService>();
 
 //  Database connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, sqlServerOptions =>
+    {
+        sqlServerOptions.CommandTimeout(180); //  زيادة المهلة إلى 180 ثانية (3 دقائق)
+        sqlServerOptions.EnableRetryOnFailure(5); //  إعادة المحاولة 5 مرات عند حدوث فشل مؤقت
+    })
+);
+
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -103,7 +110,7 @@ app.UseAuthorization();
 //  Routes
 app.MapControllerRoute(
     name: "areas",
-    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Dashboard_Admin}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

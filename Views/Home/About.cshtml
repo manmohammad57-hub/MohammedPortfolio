@@ -1,0 +1,115 @@
+﻿@model MohammedPortfolio.Models.ViewModels.AboutViewModel
+@{
+    ViewData["Title"] = "About";
+    var BioAbout = Model.Bio.Where(
+        b => b.AboutId == Model.About.Id
+    ).FirstOrDefault();
+
+    var BioSkill = Model.Bio.Where(
+        b => b.NameBoi == "Skill"
+    ).FirstOrDefault();
+}
+
+<!-- ============================
+     ABOUT SECTION
+============================= -->
+<section id="about" class="about section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>About</h2>
+        <p>@BioAbout?.Content</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row align-items-center justify-content-between gy-5 mb-5">
+            <div class="col-lg-7" data-aos="fade-right" data-aos-delay="150">
+                <div class="intro-content">
+                    <span class="eyebrow">Hello there</span>
+                    <h2 class="headline">Hi, I'm @Model.Profile?.FirstName – @Model.About?.Tagline</h2>
+                    <p class="lead">@Model.About?.Description</p>
+
+                    <div class="cta-group">
+                        @if (Model.About?.ResumePdf?.Length > 0)
+                        {
+                            <a asp-area="Admin"
+                               asp-controller="Dashboard_Admin"
+                               asp-action="DownloadResume"
+                               asp-route-id="@Model.Profile!.Id"
+                               class="link-underline me-3">
+                                Download Resume <i class="bi bi-download"></i>
+                            </a>
+
+                            <a asp-area="Admin"
+                               asp-controller="Dashboard_Admin"
+                               asp-action="ViewResume"
+                               asp-route-id="@Model.Profile.Id"
+                               target="_blank"
+                               class="link-underline">
+                                View Current Resume <i class="bi bi-eye"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <p class="text-muted fst-italic">No resume uploaded yet.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5" data-aos="zoom-in" data-aos-delay="250">
+                <figure class="profile-figure text-center text-lg-end">
+                    @if (Model.About?.Aboutimage != null && Model.About.Aboutimage.Length > 0)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.About.Aboutimage)"
+                             alt="Profile image"
+                             class="rounded-circle shadow profile-image"
+                             style="width:400px;height:400px;object-fit:cover;">
+                    }
+                    else
+                    {
+                        <div class="d-flex justify-content-center align-items-center rounded-circle shadow bg-light"
+                             style="width:400px;height:400px;">
+                            <i class="bi bi-person-circle" style="font-size: 200px; color: #6c757d;"></i>
+                        </div>
+                    }
+                </figure>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================
+     SKILLS SECTION
+============================= -->
+<section id="skills" class="skills section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Skills & Technologies</h2>
+        <p>@BioSkill?.Content</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-4 skills-animation">
+            @if (Model.Skills?.Any() == true)
+            {
+                @foreach (var skill in Model.Skills)
+                {
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="skill-box">
+                            <h3>@skill.SkillName</h3>
+                            <p>@skill.Description</p>
+                            <span class="text-end d-block">@skill.Level%</span>
+                            <div class="progress">
+                                <div class="progress-bar" style="width:@skill.Level%"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>There are no skills yet. Add a new one!</p>
+            }
+        </div>
+    </div>
+</section>

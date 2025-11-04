@@ -1,0 +1,114 @@
+﻿@{
+    var user = ViewBag.InfoUser as MohammedPortfolio.Models.Profile;
+    ViewData["Title"] = "Contact";
+}
+
+<!-- ============================
+     CONTACT SECTION
+============================= -->
+
+<section id="contact" class="contact section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>
+            I am a passionate web and mobile developer, ready to connect and work on new projects focused on
+            quality, clean design, and excellent user experience.
+        </p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-4 g-lg-5">
+            
+            <!-- Contact Info -->
+            <div class="col-lg-5">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Contact Info</h3>
+                    <p>I am a passionate developer focused on creating clean and efficient web and mobile applications.</p>
+
+                    <div class="info-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon-box"><i class="bi bi-geo-alt"></i></div>
+                        <div class="content">
+                            <h4>Location</h4>
+                            <p>@user?.Location </p>
+                        </div>
+                    </div>
+
+                    <div class="info-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="icon-box"><i class="bi bi-telephone"></i></div>
+                        <div class="content">
+                            <h4>Phone</h4>
+                            <p>@user?.Phone </p>
+                        </div>
+                    </div>
+
+                    <div class="info-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="icon-box"><i class="bi bi-envelope"></i></div>
+                        <div class="content">
+                            <h4>Email</h4>
+                            <p>@user?.Email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-7">
+                <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Get In Touch</h3>
+                    <p>
+                        If you have a project or idea you'd like to discuss, feel free to reach out. I'm always excited
+                        to collaborate and create meaningful digital experiences.
+                    </p>
+
+                    <form asp-controller="Home" asp-action="Contact" method="post" class="php-email-form">
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <input type="text" name="FullName" class="form-control" placeholder="Your Name" required />
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" name="Email" class="form-control" placeholder="Your Email" required />
+                            </div>
+                            <div class="col-12">
+                                <input type="text" name="Subject" class="form-control" placeholder="Subject" required />
+                            </div>
+                            <div class="col-12">
+                                <textarea name="Message" class="form-control" rows="6" placeholder="Message" required></textarea>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-info">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Temporary Alerts -->
+                    @if (ViewBag.Success != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show mt-3 text-center" role="alert" id="successAlert">
+                            @ViewBag.Success
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    else if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show mt-3 text-center" role="alert" id="errorAlert">
+                            Please fill all fields correctly.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        setTimeout(() => {
+            document.getElementById("successAlert")?.classList.remove("show");
+            document.getElementById("errorAlert")?.classList.remove("show");
+        }, 6000);
+    </script>
+}

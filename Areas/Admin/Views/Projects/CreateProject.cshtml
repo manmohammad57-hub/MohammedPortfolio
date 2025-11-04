@@ -1,0 +1,133 @@
+﻿@model MohammedPortfolio.Models.ViewModels.ProjectCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Project";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Create New Project</h2>
+
+    <form asp-action="CreateProject" method="post" enctype="multipart/form-data">
+
+        <!-- Title -->
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <!-- Overview -->
+        <div class="mb-3">
+            <label asp-for="Overview" class="form-label">Project Overview</label>
+            <textarea asp-for="Overview" class="form-control" rows="3" placeholder="Enter project overview"></textarea>
+        </div>
+
+        <!-- Category -->
+
+        <div class="mb-3">
+            <label asp-for="CategoryId" class="form-label"></label>
+            <select asp-for="CategoryId" class="form-select" >
+                <option value="">-- Select Category --</option>
+                @foreach (var category in  ViewBag.Categories)
+                {
+                    <option value="@category.Id">@category.CategoryName</option>
+                }
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <!-- Main Image -->
+        <div class="mb-3">
+            <label class="form-label">Main Project Image</label>
+            <input type="file" asp-for="ImageFile" class="form-control" accept="image/*" />
+        </div>
+
+        <!-- Tools Section -->
+        <div class="mb-3">
+            <label class="form-label">Project Tools</label>
+            <div id="tools-container">
+                <div class="input-group mb-2">
+                    <input type="text" name="Tools[0]" class="form-control" placeholder="Enter a tool name" />
+                    <button type="button" class="btn btn-danger" onclick="removeTool(this)">X</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-sm" onclick="addTool()">+ Add Another Tool</button>
+        </div>
+
+        <!-- Additional Images -->
+        <div class="mb-3">
+            <label class="form-label">Additional Project Images</label>
+            <div id="images-container">
+                <div class="input-group mb-2">
+                    <input type="file" name="AdditionalImages" class="form-control" accept="image/*" />
+                    <button type="button" class="btn btn-danger" onclick="removeImage(this)">X</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-sm" onclick="addImage()">+ Add More Images</button>
+        </div>
+
+        <!-- Project URL -->
+        <div class="mb-3">
+            <label asp-for="LiveDemoUrl" class="form-label">Live Demo URL (optional)</label>
+            <input asp-for="LiveDemoUrl" class="form-control" placeholder="https://example.com" />
+            <span asp-validation-for="LiveDemoUrl" class="text-danger"></span>
+        </div>
+
+        <!-- Github URL -->
+        <div class="mb-3">
+            <label asp-for="GitHubUrl" class="form-label">GitHub URL (optional)</label>
+            <input asp-for="GitHubUrl" class="form-control" placeholder="https://github.com/username" />
+            <span asp-validation-for="GitHubUrl" class="text-danger"></span>
+        </div>
+
+        <!-- Submit -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary px-4">Create Project</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        let toolIndex = 1;
+
+        function addTool() {
+            const container = document.getElementById('tools-container');
+            const div = document.createElement('div');
+            div.classList.add('input-group', 'mb-2');
+            div.innerHTML = `
+                <input type="text" name="Tools[${toolIndex++}]" class="form-control" placeholder="Enter a tool name" />
+                <button type="button" class="btn btn-danger" onclick="removeTool(this)">X</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeTool(button) {
+            button.parentElement.remove();
+        }
+
+        function addImage() {
+            const container = document.getElementById('images-container');
+            const div = document.createElement('div');
+            div.classList.add('input-group', 'mb-2');
+            div.innerHTML = `
+                <input type="file" name="AdditionalImages" class="form-control" accept="image/*" />
+                <button type="button" class="btn btn-danger" onclick="removeImage(this)">X</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeImage(button) {
+            button.parentElement.remove();
+        }
+    </script>
+}

@@ -1,0 +1,167 @@
+﻿@model MohammedPortfolio.Models.ViewModels.ServiceViewModel
+@{
+    ViewData["Title"] = "Services";
+}
+
+<!-- ============================
+     SERVICES SECTION
+============================= -->
+<section id="services" class="services section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Services</h2>
+        <p>@Model?.Bio?.Content</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center g-5">
+            @if (Model.Services != null && Model.Services.Any())
+            {
+                foreach (var item in Model.Services)
+                {
+                    <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="@item.IconUrl"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3>@item.Title</h3>
+                                <p>@item.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-center text-muted">There are no services available. Please add a new service.</p>
+            }
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================
+     SERVICE DETAILS SECTION
+============================= -->
+<section id="service-details" class="service-details section">
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Service Details</h2>
+        <p>Explore how I plan, design, and deliver professional software solutions with an efficient process and measurable results.</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="200">
+        <div class="row g-5 align-items-start">
+
+            <!-- Implementation Timeline -->
+            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="300">
+                <div class="timeline-section">
+                    <h3>Implementation Journey</h3>
+                    <div class="timeline">
+                        @if (Model.ImplementationSteps != null && Model.ImplementationSteps.Any())
+                        {
+                            foreach (var step in Model.ImplementationSteps)
+                            {
+                                <div class="timeline-item">
+                                    <div class="timeline-marker">
+                                        <span>@step.StepNumber</span>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h4>@step.StepTitle</h4>
+                                        <p>@step.Description</p>
+                                        <small>@step.Duration</small>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-muted">No implementation steps available. Please add new steps.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Inquiry Form -->
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+                <div class="consultation-form p-4" style="min-height: 600px!important; border-radius: 8px!important;">
+                    <div class="form-header mb-4 text-center">
+                        <h4>Start Your Project</h4>
+                        <p>Ready to bring your idea to life? Fill out the form below and let’s start building your project together.</p>
+                    </div>
+
+                    <form asp-controller="Home" asp-action="Service" method="post" class="php-email-form">
+                        <div class="row g-4">
+                            <div class="mb-3">
+                                <input type="text" name="FullName" class="form-control" placeholder="Full Name" required />
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" name="Email" class="form-control" placeholder="Email Address" required />
+                            </div>
+                            <div class="mb-3">
+                                <input type="tel" name="Phone" class="form-control" placeholder="Phone Number" />
+                            </div>
+
+                            <div class="mb-3">
+                                <select asp-for="SelectedCategoryId" class="form-select">
+                                    <option value="">-- Select Category --</option>
+                                    @foreach (var category in Model.Categories)
+                                    {
+                                        <option value="@category.Id">@category.CategoryName</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="SelectedCategoryId" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="col-12">
+                                <textarea name="Description" class="form-control" rows="7" placeholder="Describe your project goals and requirements..." required></textarea>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary px-4">
+                                    <span>Send Project Request</span>
+                                    <i class="bi bi-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Success Message -->
+                    @if (ViewBag.Success != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show mt-3 text-center" role="alert" id="successAlert">
+                            @ViewBag.Success
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <!-- Error Message -->
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show mt-3 text-center" role="alert" id="errorAlert">
+                            Please fill all fields correctly.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div> <!-- End row -->
+    </div>
+</section>
+
+
+<!-- ============================
+     AUTO-HIDE ALERT SCRIPT
+============================= -->
+@section Scripts {
+    <script>
+        // Automatically hide alerts after 7 seconds
+        setTimeout(() => {
+            const success = document.getElementById("successAlert");
+            const error = document.getElementById("errorAlert");
+
+            if (success) success.classList.remove("show");
+            if (error) error.classList.remove("show");
+        }, 7000);
+    </script>
+}

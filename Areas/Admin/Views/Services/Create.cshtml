@@ -1,0 +1,41 @@
+﻿@model MohammedPortfolio.Models.Service
+@{
+    ViewData["Title"] = "Add New Service";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="section">
+    <div class="container">
+        <h2 class="mb-4">Add New Service</h2>
+
+        <form asp-action="Create" method="post" asp-area="Admin"
+                 asp-controller="Services" >
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="IconUrl" class="form-label"></label>
+                <input asp-for="IconUrl"  class="form-control"/>
+                <span asp-validation-for="IconUrl" class="text-danger"></span>
+            </div>
+        
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Add Service
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
