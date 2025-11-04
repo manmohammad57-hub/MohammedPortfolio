@@ -1,0 +1,53 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Access Denied";
+}
+
+<style>
+    .access-denied-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+        text-align: center;
+        color: white;
+    }
+
+    .access-denied-container h1 {
+        color: #dc3545; /* Bootstrap danger color */
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .access-denied-container p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .logout-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background-color: #c82333;
+    }
+</style>
+
+<div class="access-denied-container">
+    <h1>@ViewData["Title"]</h1>
+    <p>You do not have access to this resource.</p>
+
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Account/Login", new { area = "Identity" })" method="post" id="logoutForm">
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
+</div>

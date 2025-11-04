@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- ✅ Bootstrap CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- ✅ FontAwesome (for icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- ✅ Your custom site CSS -->
+    <link href="~/css/site.css" rel="stylesheet" />
+
+    <style>
+        /* Gradient background like your first design */
+        .gradient-custom {
+            background: linear-gradient(to right, #141e30, #243b55);
+        }
+    </style>
+</head>
+<body class="gradient-custom">
+    @RenderBody()
+
+    <!-- ✅ Scripts -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
