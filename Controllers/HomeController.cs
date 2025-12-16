@@ -204,6 +204,33 @@ namespace MohammedPortfolio.Controllers
 
             return View(viewModel);
         }
+        // عرض السيرة الذاتية في المتصفح مباشرة
+        [HttpGet]
+        public async Task<IActionResult> ViewResume(int id)
+        {
+            var Resume = await _context.About_.FirstOrDefaultAsync();
+            if (Resume == null || Resume.ResumePdf == null)
+            {
+                return NotFound("Resume not found");
+            }
+
+            return File(Resume.ResumePdf, "application/pdf");
+        }
+
+        // تحميل السيرة الذاتية كملف
+        [HttpGet]
+        public async Task<IActionResult> DownloadResume(int id)
+        {
+            var Resume = await _context.About_.FirstOrDefaultAsync(p => p.Id == id);
+            var info = await _context.Profile_.FirstOrDefaultAsync();
+            if (Resume == null || Resume.ResumePdf == null)
+            {
+                return NotFound("Resume not found");
+            }
+
+            var fileName = $"{info.FirstName}_{info.LastName}_Resume.pdf";
+            return File(Resume.ResumePdf, "application/pdf", fileName);
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

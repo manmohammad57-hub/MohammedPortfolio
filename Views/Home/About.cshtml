@@ -30,16 +30,16 @@
                     <div class="cta-group">
                         @if (Model.About?.ResumePdf?.Length > 0)
                         {
-                            <a asp-area="Admin"
-                               asp-controller="Dashboard_Admin"
+                            <a asp-area=""
+                               asp-controller="Home"
                                asp-action="DownloadResume"
                                asp-route-id="@Model.Profile!.Id"
                                class="link-underline me-3">
                                 Download Resume <i class="bi bi-download"></i>
                             </a>
 
-                            <a asp-area="Admin"
-                               asp-controller="Dashboard_Admin"
+                            <a asp-area=""
+                               asp-controller="Home"
                                asp-action="ViewResume"
                                asp-route-id="@Model.Profile.Id"
                                target="_blank"
