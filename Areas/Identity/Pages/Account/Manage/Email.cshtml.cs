@@ -78,7 +78,6 @@ namespace MohammedPortfolio.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        [HttpPost]
         public async Task<IActionResult> OnPostChangeEmailAsync()
         {
             if (!ModelState.IsValid)

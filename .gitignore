@@ -1,6 +1,25 @@
-﻿# Ignore Properties folder
-Properties/
-
-# Ignore specific files
-Program.cs
+﻿# تجاهل ملفّات الإعدادات التي تحتوي معلومات حساسة
 appsettings.json
+appsettings.Development.json
+
+# تجاهل ملفات البناء
+bin/
+obj/
+
+# تجاهل ملفات الإخراج
+/app/publish/
+/app/build/
+
+# تجاهل ملفات فيجوال ستوديو
+*.user
+*.suo
+*.cache
+*.vs/
+
+# تجاهل إعدادات التشغيل فقط
+Properties/launchSettings.json
+
+# مجلدات الأدوات
+.vscode/
+*.DS_Store
+*.env
